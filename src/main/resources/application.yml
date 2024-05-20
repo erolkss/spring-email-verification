@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: email-verification-demo
+  datasource:
+    url: jdbc:mysql://localhost:3306/registration_db
+    username: Teste
+    password: Teste@123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+
+server:
+  port: 8080
