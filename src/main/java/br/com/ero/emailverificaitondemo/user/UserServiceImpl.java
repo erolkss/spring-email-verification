@@ -2,6 +2,8 @@ package br.com.ero.emailverificaitondemo.user;
 
 import br.com.ero.emailverificaitondemo.exception.UserAlreadyExistsException;
 import br.com.ero.emailverificaitondemo.registration.RegistrationRequest;
+import br.com.ero.emailverificaitondemo.registration.token.VerificationToken;
+import br.com.ero.emailverificaitondemo.registration.token.VerificationTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +18,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final VerificationTokenRepository verificationTokenRepository;
 
     @Override
     public List<User> getUsers() {
@@ -40,5 +43,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public void saveUserVerificationToken(User theUser, String token) {
+        var verificationToken = new VerificationToken(token, theUser );
+        verificationTokenRepository.save(verificationToken);
     }
 }
