@@ -24,8 +24,8 @@ public class UserRegistrationSecurityConfig {
         return httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> {
-                    request.requestMatchers("/register").permitAll();
-                    request.requestMatchers("/users")
+                    request.requestMatchers("/register/**").permitAll();
+                    request.requestMatchers("/users/**")
                             .hasAnyAuthority("USER", "ADMIN");
                 }).formLogin(Customizer.withDefaults()).build();
     }
